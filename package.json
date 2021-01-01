@@ -1,0 +1,30 @@
+{
+  "name": "anchor",
+  "version": "1.0.0",
+  "description": "tiny global application registry",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "npx gulp default",
+    "test": "npm run build && npm run lint && deno run test/index.spec.js",
+    "lint": "npx eslint src/index.js"
+  },
+  "keywords": [
+    "utility",
+    "micro-frontend",
+    "spa"
+  ],
+  "author": "Geoff Doty",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "gulp": "^4.0.2",
+    "gulp-minify": "^3.1.0",
+    "gulp-rollup-2": "^1.2.1",
+    "gulp-strip-comments": "^2.5.2"
+  }
+}
