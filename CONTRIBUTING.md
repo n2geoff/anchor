@@ -38,7 +38,7 @@ npm run test
 
 ## Reporting a bug
 
-Use the [GitHub issue tracker](https://github.com/n2geoff/js-lib/issues) to report any bug you find.
+Use the [GitHub issue tracker](https://github.com/n2geoff/anchor/issues) to report any bug you find.
 Bugs description should include:
 
 * How to reproduce the bug;
@@ -48,11 +48,10 @@ Would be nice to have some code showing how to reproduce the code, you may use [
 
 ## Request a feature
 
-Use the [GitHub issue tracker](https://github.com/n2geoff/js-lib/issues) to request a new feature.
+Use the [GitHub issue tracker](https://github.com/n2geoff/anchor/issues) to request a new feature.
 
 Keep in mind, this is a pure javascript library
 
-Feel free to port it to your favorite framework, such as [RiotJS](http://riotjs.com), Angular or VueJs in a new repository.
 
 ## Commit message
 
