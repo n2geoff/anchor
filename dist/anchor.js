@@ -1,38 +1,29 @@
+function Anchor(fasten = {}, mixins = []) {
+    const NAMESPACE = `_${Math.random().toString(36).slice(-6)}_`.toUpperCase();
 
-class Anchor {
-    constructor(fasten = {}, mixins = [], debug = false) {
-        this.namespace = `_${Math.random().toString(36).slice(-6)}_`.toUpperCase();
+    const GLOBAL = window || global || {};
 
-        this.global = window || global;
-
-        return this.build(fasten, mixins, debug);
-    }
-
-    register(key, value) {
-        if (this.global[this.namespace] && !this.global[this.namespace][key]) {
-            return this.global[this.namespace][key] = value;
+    const register = function register(key, value) {
+        if (GLOBAL[NAMESPACE] && !GLOBAL[NAMESPACE][key]) {
+            return GLOBAL[NAMESPACE][key] = value;
         }
 
         return false;
-    }
+    }.bind(GLOBAL[NAMESPACE]);
 
-    build(fasten, merges, debug) {
-        if (this.global[this.namespace]) {
+    function build(fasten, merges, register) {
+        if (GLOBAL[NAMESPACE]) {
             return false;
         }
 
-        this.global[this.namespace] = fasten;
+        GLOBAL[NAMESPACE] = fasten;
+        GLOBAL[NAMESPACE]['register'] = register;
 
-        merges.forEach((merge) => Object.assign(this.global[this.namespace], merge));
+        merges.forEach((merge) => Object.assign(GLOBAL[NAMESPACE], merge));
 
-        this.register('register', this.register);
-
-        if (!!debug) {
-            console.log('ANCHOR:FASTEN', this.namespace, this.global[this.namespace]);
-        }
-
-        return this.global[this.namespace];
+        return GLOBAL[NAMESPACE];
     }
+    return build(fasten, mixins, register);
 }
 
 export default Anchor;
