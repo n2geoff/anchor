@@ -9,10 +9,12 @@ Useful for composing single-page-apps or developing a Micro-Frontend architectur
 
 ## API
 
-    Anchor(register = {}, [mix = []])
+    Anchor([options = {}])
 
-- `register` {Object} - initial object registry (optional)
-- `mixin` {Array} - extend anchor directly (optional)
+- `options` {Object} (optional)
+    - `register` {Object} - initial object registry (optional)
+    - `global` {Object} - global object to anchor to (default {})
+    - `mixins` {Array} - extend achor directly
 
 ## Quick Start
 
@@ -23,7 +25,7 @@ Useful for composing single-page-apps or developing a Micro-Frontend architectur
 
 import anchor from 'anchor.js';
 
-let app = new Anchor();
+let app = Anchor();
 
 app.register('version', '1.0.0');
 app.register('log', console);
@@ -42,23 +44,24 @@ import app from 'app.js';
 app.log.info('using app version', app.version); // using app version 1.0.0
 ```
 
-You can also initialize `Anchor` with an object to front-load the registry instead of using `app.register()`
+You can also initialize `Anchor` with an object to front-loaded the registry via `opts.register` instead of using `app.register()`
 
 ```js
 let app = new Anchor({
-	'version': '1.0.0',
-	'log': console,
-	...
+    register: {
+        'version': '1.0.0',
+        'log': console,
+        ...
+    }
 });
 ```
-
 
 
 >  TIP: Connect multiple spas together, on each spa use `app.register` to extend that spas functionality on its bootstrap file
 
 
 
-The `Anchor mixin` option acts more like a *merge*, rather than a `registry` and is useful to `mixin` objects directly, for example:
+The `Anchor` `options.mixins` acts more like a *merge*, rather than a `registry` and is useful to `mixin` to the anchor directly, for example:
 
 ```js
 // app.js
@@ -66,7 +69,7 @@ The `Anchor mixin` option acts more like a *merge*, rather than a `registry` and
 import anchor from 'anchor.js';
 import mitt from 'mitt.js'; // event library
 
-let app = new Anchor({}, [mitt()]); // adds on, off, emit, all to app
+let app = new Anchor({mixins: [mitt()]}); // adds on, off, emit, all to app
 
 ```
 
@@ -85,9 +88,7 @@ app.events.emit('my-event', " I'm your huckel berry");
 ```
 
 
-
-> WARNING: `mixin` has no safe guards and will overwrite existing duplicate functionality
-
+> WARNING: `mixins` have no safe guards and WILL overwrite duplicates
 
 
 ## Tests

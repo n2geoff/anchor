@@ -1,12 +1,12 @@
 /**
  * Tiny global application registry
  */
-function Anchor(fasten = {}, mixins = []) {
+function Anchor(opts = {}) {
     // create a unique namespace to avoid collisions
     const NAMESPACE = `_${Math.random().toString(36).slice(-6)}_`.toUpperCase();
 
-    // find environments global object
-    const GLOBAL = window || global || {};
+    // global object anchor
+    const GLOBAL = opts.global || {};
 
     /**
     * Register
@@ -28,26 +28,26 @@ function Anchor(fasten = {}, mixins = []) {
     * Builds the Application Anchor
     *
     * @param {Object} fasten
-    * @param {Array} merges
+    * @param {Array} mixins
     * @param {Boolean} debug
     */
-    function build(fasten, merges, register) {
+    function build(opts, register) {
         if (GLOBAL[NAMESPACE]) {
             // already initialized
             return false;
         }
 
         // add to global instance
-        GLOBAL[NAMESPACE] = fasten;
+        GLOBAL[NAMESPACE] = opts.register || {};
         GLOBAL[NAMESPACE]['register'] = register;
 
         // merge with global instance
-        merges.forEach((merge) => Object.assign(GLOBAL[NAMESPACE], merge));
+        (opts.mixins || []).forEach((mixin) => Object.assign(GLOBAL[NAMESPACE], mixin));
 
         return GLOBAL[NAMESPACE];
     };
 
-    return build(fasten, mixins, register);
+    return build(opts || {}, register);
 };
 
 export default Anchor;
