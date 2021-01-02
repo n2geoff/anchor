@@ -4,10 +4,10 @@
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.umd = factory());
 }(this, (function () { 'use strict';
 
-    function Anchor(fasten = {}, mixins = []) {
+    function Anchor(opts = {}) {
         const NAMESPACE = `_${Math.random().toString(36).slice(-6)}_`.toUpperCase();
 
-        const GLOBAL = window || global || {};
+        const GLOBAL = opts.global || {};
 
         const register = function register(key, value) {
             if (GLOBAL[NAMESPACE] && !GLOBAL[NAMESPACE][key]) {
@@ -17,19 +17,19 @@
             return false;
         }.bind(GLOBAL[NAMESPACE]);
 
-        function build(fasten, merges, register) {
+        function build(opts, register) {
             if (GLOBAL[NAMESPACE]) {
                 return false;
             }
 
-            GLOBAL[NAMESPACE] = fasten;
+            GLOBAL[NAMESPACE] = opts.register || {};
             GLOBAL[NAMESPACE]['register'] = register;
 
-            merges.forEach((merge) => Object.assign(GLOBAL[NAMESPACE], merge));
+            (opts.mixins || []).forEach((mixin) => Object.assign(GLOBAL[NAMESPACE], mixin));
 
             return GLOBAL[NAMESPACE];
         }
-        return build(fasten, mixins, register);
+        return build(opts || {}, register);
     }
 
     return Anchor;
