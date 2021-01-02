@@ -2,7 +2,7 @@
 
 > fasten your apps!
 
-Tiny (1kb) utility library that creates a unique global application registry.
+Tiny (>1kb) library to create a unique global application registry.
 
 Useful for composing single-page-apps or developing a Micro-Frontend architecture
 
