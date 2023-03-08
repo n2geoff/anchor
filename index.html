@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        import Anchor from './src/index.js';
+
+
+        let app = Anchor({
+            register: {
+                'version': '1.0.0'
+            },
+            global: window,
+            mixins: [console]
+        });
+
+        console.log('app', app);
+
+    </script>
+</body>
+</html>

@@ -45,9 +45,9 @@ function Anchor(opts = {}) {
         (opts.mixins || []).forEach((mixin) => Object.assign(GLOBAL[NAMESPACE], mixin));
 
         return GLOBAL[NAMESPACE];
-    };
+    }
 
     return build(opts || {}, register);
-};
+}
 
 export default Anchor;

@@ -1,4 +1,4 @@
-import test from "../node_modules/testit/dist/testit.js";
+import test from "https://raw.githubusercontent.com/n2geoff/testit/master/dist/testit.min.js";
 import Anchor from "../src/index.js";
 
 test.it({
